@@ -13,15 +13,25 @@ sns.set_palette("pastel")
 # 加載內建資料集
 tips = sns.load_dataset("tips")
 
+# 將英文欄位名稱改為中文
+tips = tips.rename(columns={
+    'total_bill': '帳單總額',
+    'tip': '小費',
+    'sex': '性別',
+    'smoker': '是否吸煙',
+    'day': '星期幾',
+    'time': '用餐時間',
+    'size': '用餐人數'
+})
+
 # 熱力圖範例程式
 # 只選擇數值型列計算相關係數矩陣
 numeric_cols = tips.select_dtypes(include=["float64", "int64"])  # 選擇數值型列
 corr = numeric_cols.corr()  # 計算相關係數矩陣
 
 # 配對圖範例程式
-sns.pairplot(tips, hue="sex", diag_kind="kde")
+sns.pairplot(tips, hue="性別", diag_kind="kde")
 plt.suptitle("按性別分類的配對圖", y=1.02)
-# hue: 按類別上色。
-# diag_kind: 設定對角線上的圖形類型，如直方圖或 KDE。
+
 # 顯示圖表
 plt.show()
